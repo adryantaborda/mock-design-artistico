@@ -2,13 +2,13 @@
   <section id="contato" class="contact">
     <Container>
       <h2 class="section-title fade-in-up">Entre em Contato</h2>
-      <p class="section-subtitle fade-in-up">
+      <p class="section-subtitle fade-in-up animate-delay-100">
         Vamos criar algo incrível juntos. Entre em contato para discutir seu
         projeto.
       </p>
       <div class="contact-content">
-        <form class="contact-form fade-in-up" @submit.prevent="handleSubmit">
-          <div class="form-group">
+        <form class="contact-form fade-in-left animate-delay-200" @submit.prevent="handleSubmit">
+          <div class="form-group fade-in-up animate-delay-300">
             <label for="name">Nome</label>
             <input
               id="name"
@@ -19,7 +19,7 @@
               placeholder="Seu nome"
             />
           </div>
-          <div class="form-group">
+          <div class="form-group fade-in-up animate-delay-400">
             <label for="email">Email</label>
             <input
               id="email"
@@ -30,7 +30,7 @@
               placeholder="seu@email.com"
             />
           </div>
-          <div class="form-group">
+          <div class="form-group fade-in-up animate-delay-500">
             <label for="message">Mensagem</label>
             <textarea
               id="message"
@@ -41,11 +41,11 @@
               placeholder="Conte-me sobre seu projeto..."
             ></textarea>
           </div>
-          <Button type="submit" variant="primary" size="lg" class="submit-btn">
+          <Button type="submit" variant="primary" size="lg" class="submit-btn fade-in-up">
             Enviar Mensagem
           </Button>
         </form>
-        <div class="contact-info fade-in">
+        <div class="contact-info fade-in-right animate-delay-300">
           <div class="info-item">
             <h3>Email</h3>
             <a href="mailto:contato@artista.com">contato@artista.com</a>
@@ -53,9 +53,14 @@
           <div class="info-item">
             <h3>Redes Sociais</h3>
             <div class="social-links">
-              <a href="#" target="_blank" rel="noopener noreferrer">Instagram</a>
-              <a href="#" target="_blank" rel="noopener noreferrer">Behance</a>
-              <a href="#" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+              <a href="#" class="social-link" target="_blank" rel="noopener noreferrer">
+                <SocialIcon platform="instagram" :size="20" />
+                <span>Instagram</span>
+              </a>
+              <a href="#" class="social-link" target="_blank" rel="noopener noreferrer">
+                <SocialIcon platform="linkedin" :size="20" />
+                <span>LinkedIn</span>
+              </a>
             </div>
           </div>
         </div>
@@ -68,6 +73,7 @@
 import { ref } from 'vue'
 import Container from '../UI/Container.vue'
 import Button from '../UI/Button.vue'
+import SocialIcon from '../UI/SocialIcon.vue'
 
 const form = ref({
   name: '',
@@ -193,7 +199,36 @@ const handleSubmit = () => {
 .social-links {
   display: flex;
   flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.social-link {
+  display: flex;
+  align-items: center;
   gap: var(--spacing-xs);
+  padding: var(--spacing-xs) 0;
+  color: var(--color-text-secondary);
+  transition: all var(--transition-base);
+  text-decoration: none;
+}
+
+.social-link:hover {
+  color: var(--color-accent-1);
+  transform: translateX(4px);
+}
+
+.social-link:hover .social-icon-instagram {
+  color: #e1306c;
+  transform: translateY(-2px);
+}
+
+.social-link:hover .social-icon-linkedin {
+  color: #0077b5;
+  transform: translateY(-2px);
+}
+
+.social-link span {
+  font-size: var(--font-size-body);
 }
 
 @media (max-width: 968px) {

@@ -1,22 +1,33 @@
 <template>
   <section id="inicio" class="hero">
     <Container>
-      <div class="hero-content fade-in-up">
-        <h1 class="hero-title">
-          Arte que <span class="text-gradient">transforma</span> e
-          <span class="text-gradient">inspira</span>
-        </h1>
-        <p class="hero-subtitle">
-          Bem-vindo ao meu universo criativo. Descubra projetos visuais únicos
-          que contam histórias através da arte e do design.
-        </p>
-        <div class="hero-actions">
-          <Button variant="primary" size="lg" @click="scrollToSection('portfolio')">
-            Ver Portfolio
-          </Button>
-          <Button variant="outline" size="lg" @click="scrollToSection('contato')">
-            Entre em Contato
-          </Button>
+      <div class="hero-wrapper">
+        <div class="hero-content">
+          <h1 class="hero-title fade-in-up animate-delay-100">
+            Arte que <span class="text-gradient">transforma</span> e
+            <span class="text-gradient">inspira</span>
+          </h1>
+          <p class="hero-subtitle fade-in-up animate-delay-200">
+            Bem-vindo ao meu universo criativo. Descubra projetos visuais únicos
+            que contam histórias através da arte e do design.
+          </p>
+          <div class="hero-actions fade-in-up animate-delay-300">
+            <Button variant="primary" size="lg" @click="scrollToSection('portfolio')">
+              Ver Portfolio
+            </Button>
+            <Button variant="outline" size="lg" @click="scrollToSection('contato')">
+              Entre em Contato
+            </Button>
+          </div>
+        </div>
+        <div class="hero-image fade-in-right animate-delay-200">
+          <div class="image-wrapper">
+            <img
+              :src="tangoImage"
+              alt="Dançarinos de tango"
+              class="tango-image"
+            />
+          </div>
         </div>
       </div>
     </Container>
@@ -31,13 +42,10 @@
 <script setup lang="ts">
 import Container from '../UI/Container.vue'
 import Button from '../UI/Button.vue'
+import tangoImage from '../../assets/images/tango-dancers.png'
+import { useSmoothScroll } from '../../composables/useSmoothScroll'
 
-const scrollToSection = (id: string) => {
-  const element = document.getElementById(id)
-  if (element) {
-    element.scrollIntoView({ behavior: 'smooth' })
-  }
-}
+const { scrollToSection } = useSmoothScroll()
 </script>
 
 <style scoped>
@@ -52,9 +60,19 @@ const scrollToSection = (id: string) => {
   background: var(--color-bg-soft);
 }
 
+.hero-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-3xl);
+  align-items: center;
+  width: 100%;
+  max-width: 1400px;
+  z-index: 1;
+}
+
 .hero-content {
-  text-align: center;
-  max-width: 800px;
+  text-align: left;
+  max-width: 600px;
   z-index: 1;
 }
 
@@ -78,16 +96,72 @@ const scrollToSection = (id: string) => {
   line-height: var(--line-height-relaxed);
   color: var(--color-text-secondary);
   margin-bottom: var(--spacing-xl);
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
 }
 
 .hero-actions {
   display: flex;
   gap: var(--spacing-md);
-  justify-content: center;
+  justify-content: flex-start;
   flex-wrap: wrap;
+}
+
+.hero-image {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.image-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-lg);
+  background: var(--color-bg-primary);
+  border-radius: var(--border-radius-xl);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+}
+
+.image-wrapper::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: radial-gradient(circle, var(--color-accent-1) 1px, transparent 1px);
+  background-size: 20px 20px;
+  background-position: 0 0;
+  opacity: 0.1;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.tango-image {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: grayscale(100%) opacity(0.85) contrast(1.1);
+  transition: all var(--transition-slow);
+  z-index: 1;
+}
+
+.hero:hover .tango-image {
+  filter: grayscale(70%) opacity(1) contrast(1.2);
+  transform: scale(1.03);
+}
+
+.image-wrapper:hover {
+  box-shadow: var(--shadow-xl);
+  transform: translateY(-4px);
+  transition: all var(--transition-base);
 }
 
 .hero-decoration {
@@ -133,6 +207,33 @@ const scrollToSection = (id: string) => {
   background: var(--gradient-3);
 }
 
+@media (max-width: 968px) {
+  .hero-wrapper {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-2xl);
+    text-align: center;
+  }
+
+  .hero-content {
+    text-align: center;
+    max-width: 100%;
+  }
+
+  .hero-actions {
+    justify-content: center;
+  }
+
+  .hero-image {
+    order: -1;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+
+  .image-wrapper {
+    max-width: 100%;
+  }
+}
+
 @media (max-width: 768px) {
   .hero {
     min-height: 90vh;
@@ -150,6 +251,10 @@ const scrollToSection = (id: string) => {
 
   .hero-actions .btn {
     width: 100%;
+  }
+
+  .hero-image {
+    max-width: 300px;
   }
 }
 </style>

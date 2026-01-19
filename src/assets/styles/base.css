@@ -124,18 +124,16 @@ img {
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(20px);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
   }
 }
 
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(40px);
   }
   to {
     opacity: 1;
@@ -143,10 +141,10 @@ img {
   }
 }
 
-@keyframes slideIn {
+@keyframes fadeInLeft {
   from {
     opacity: 0;
-    transform: translateX(-20px);
+    transform: translateX(-40px);
   }
   to {
     opacity: 1;
@@ -154,32 +152,123 @@ img {
   }
 }
 
-.fade-in {
-  animation: fadeIn var(--transition-slow) ease-out;
-  animation-fill-mode: both;
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
-.fade-in-up {
-  animation: fadeInUp var(--transition-slow) ease-out;
-  animation-fill-mode: both;
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.slide-in {
-  animation: slideIn var(--transition-base) ease-out;
-  animation-fill-mode: both;
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
-/* Scroll Reveal */
-.revealed {
-  opacity: 1 !important;
-  transform: translateY(0) !important;
+/* Curvas de easing suaves e cremosas */
+:root {
+  --ease-soft: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-creamy: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-smooth: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.reveal {
+/* Classes de animação - Estado inicial (invisível) */
+/* Garantir que todos os elementos com classes de animação começam invisíveis */
+.fade-in,
+.fade-in-up,
+.fade-in-left,
+.fade-in-right,
+.slide-up,
+.scale-in {
   opacity: 0;
+  transition: opacity 0.9s var(--ease-creamy),
+    transform 0.9s var(--ease-creamy);
+  will-change: opacity, transform;
+}
+
+/* Manter invisível até ser marcado como visível */
+.fade-in:not(.is-visible),
+.fade-in-up:not(.is-visible),
+.fade-in-left:not(.is-visible),
+.fade-in-right:not(.is-visible),
+.slide-up:not(.is-visible),
+.scale-in:not(.is-visible) {
+  opacity: 0 !important;
+}
+
+/* Estado inicial específico para cada tipo */
+.fade-in-up:not(.is-visible) {
   transform: translateY(30px);
-  transition: opacity var(--transition-slow) ease-out,
-    transform var(--transition-slow) ease-out;
+}
+
+.fade-in-left:not(.is-visible) {
+  transform: translateX(-30px);
+}
+
+.fade-in-right:not(.is-visible) {
+  transform: translateX(30px);
+}
+
+.slide-up:not(.is-visible) {
+  transform: translateY(40px);
+}
+
+.scale-in:not(.is-visible) {
+  transform: scale(0.95);
+}
+
+/* Estado visível (quando entra na viewport) */
+.fade-in.is-visible,
+.fade-in-up.is-visible,
+.fade-in-left.is-visible,
+.fade-in-right.is-visible,
+.slide-up.is-visible,
+.scale-in.is-visible {
+  opacity: 1 !important;
+  transform: translateY(0) translateX(0) scale(1) !important;
+  transition: opacity 0.9s var(--ease-creamy),
+    transform 0.9s var(--ease-creamy);
+}
+
+/* Delay para animações sequenciais - mais espaçados para fluir melhor */
+.animate-delay-100 {
+  transition-delay: 0.15s;
+}
+
+.animate-delay-200 {
+  transition-delay: 0.3s;
+}
+
+.animate-delay-300 {
+  transition-delay: 0.45s;
+}
+
+.animate-delay-400 {
+  transition-delay: 0.6s;
+}
+
+.animate-delay-500 {
+  transition-delay: 0.75s;
 }
 
 /* ===== Transições Suaves ===== */

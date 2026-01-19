@@ -4,7 +4,11 @@
     <main class="main">
       <HeroSection />
       <AboutSection />
+      <CreativeProcessSection />
       <PortfolioSection />
+      <InspirationSection />
+      <ExhibitionsSection />
+      <QuoteSection />
       <ContactSection />
     </main>
     <Footer />
@@ -16,7 +20,11 @@ import Header from '../components/Layout/Header.vue'
 import Footer from '../components/Layout/Footer.vue'
 import HeroSection from '../components/Sections/HeroSection.vue'
 import AboutSection from '../components/Sections/AboutSection.vue'
+import CreativeProcessSection from '../components/Sections/CreativeProcessSection.vue'
 import PortfolioSection from '../components/Sections/PortfolioSection.vue'
+import InspirationSection from '../components/Sections/InspirationSection.vue'
+import ExhibitionsSection from '../components/Sections/ExhibitionsSection.vue'
+import QuoteSection from '../components/Sections/QuoteSection.vue'
 import ContactSection from '../components/Sections/ContactSection.vue'
 </script>
 
